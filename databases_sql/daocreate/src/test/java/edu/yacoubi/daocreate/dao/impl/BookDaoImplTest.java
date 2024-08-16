@@ -27,7 +27,6 @@ class BookDaoImplTest {
                 .authorId(1L)
                 .build();
 
-
         underTest.create(book);
 
         verify(jdbcTemplate).update(
