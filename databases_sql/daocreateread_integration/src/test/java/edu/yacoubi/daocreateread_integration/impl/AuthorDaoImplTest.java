@@ -1,5 +1,6 @@
 package edu.yacoubi.daocreateread_integration.impl;
 
+import edu.yacoubi.daocreateread_integration.TestDataUtil;
 import edu.yacoubi.daocreateread_integration.dao.impl.AuthorDaoImpl;
 import edu.yacoubi.daocreateread_integration.model.Author;
 import org.junit.jupiter.api.Test;
@@ -35,11 +36,7 @@ class AuthorDaoImplTest {
 
     @Test
     public void testThatCreateAuthorGeneratesCorrectSql() {
-        Author author = Author.builder()
-                .id(1L)
-                .name("Thomas")
-                .age(23)
-                .build();
+        Author author = TestDataUtil.createTestAuthor();
 
         underTest.create(author);
 
