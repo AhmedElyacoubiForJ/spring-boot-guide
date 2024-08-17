@@ -68,4 +68,20 @@ class AuthorDaoImplTest {
                 eq(1L)
         );
     }
+
+    @Test
+    public void testThatFindAllAuthorsGeneratesCorrectSql() {
+        underTest.findAll();
+
+        /*
+        * This method verifies that the query method of the JdbcTemplate
+        * is called with the expected arguments.
+        * This helps ensure that the AuthorDaoImpl class correctly
+        * generates the SQL statement for finding all authors.
+        * */
+        verify(jdbcTemplate).query(
+                eq("SELECT id, name, age FROM authors"),
+                ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any()
+        );
+    }
 }

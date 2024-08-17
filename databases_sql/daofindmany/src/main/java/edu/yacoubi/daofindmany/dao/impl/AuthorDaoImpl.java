@@ -38,6 +38,13 @@ public class AuthorDaoImpl implements AuthorDao {
         // return results.isEmpty()? Optional.empty() : Optional.of(results.get(0));
     }
 
+    @Override
+    public List<Author> findAll() {
+        return jdbcTemplate.query(
+                "SELECT id, name, age FROM authors",
+                new AuthorRowMapper());
+    }
+
     // RowMapper implementation
     public static class AuthorRowMapper implements RowMapper<Author> {
         @Override
