@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,35 +17,33 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class BookDaoImplIntegrationTest {
-//
-//    private AuthorDao authorDao;
-//
-//    private BookDaoImpl underTest;
-//
-//    @Autowired
-//    public BookDaoImplIntegrationTest(BookDaoImpl underTest, AuthorDao authorDao) {
-//        this.underTest = underTest;
-//        this.authorDao = authorDao;
-//    }
-//
-//    @Test
-//    public void testThatBookCanBeCreatedAndRecalled() {
-//        // Given
-//        Author author = TestDataUtil.createTestAuthorA();
-//        authorDao.create(author);
-//        Book book = TestDataUtil.createTestBookA();
-//        book.setAuthorId(author.getId());
-//
-//        // When
-//        underTest.create(book);
-//        Optional<Book> result = underTest.findOne(book.getIsbn());
-//
-//        // Then
-//        assertThat(result).isPresent();
-//        assertThat(result.get()).isEqualTo(book);
-//    }
-//
+public class BookRepositoryIntegrationTest {
+
+    private AuthorRepository authorRepository;
+
+    private BookRepository underTest;
+
+    @Autowired
+    public BookRepositoryIntegrationTest(BookRepository underTest, AuthorRepository authorRepository) {
+        this.underTest = underTest;
+        this.authorRepository = authorRepository;
+    }
+
+    @Test
+    public void testThatBookCanBeCreatedAndRecalled() {
+        // Given
+        Author author = TestDataUtil.createTestAuthorA();
+        Book book = TestDataUtil.createTestBookA(author);
+
+        // When
+        underTest.save(book); // cascade save
+        Optional<Book> result = underTest.findById(book.getIsbn());
+
+        // Then
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(book);
+    }
+
 //    @Test
 //    public void testThatMultipleBooksCanBeCreatedAndRecalled() {
 //        // Given
