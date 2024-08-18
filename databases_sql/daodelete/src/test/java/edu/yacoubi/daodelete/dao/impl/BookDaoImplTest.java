@@ -99,4 +99,23 @@ class BookDaoImplTest {
                 eq("978-1-5498-6791-0"), eq("The Great Gatsby"), eq(1L), eq("978-1-5498-6791-0")
         );
     }
+
+    @Test
+    public void testThatDeleteBookGeneratesCorrectSql() {
+        // Given
+        // When
+        underTest.delete("978-1-5498-6791-0");
+
+        // Then
+        /*
+         * This method verifies that the update method
+         * of the JdbcTemplate is called with the expected arguments.
+         * This helps ensure that the BookDaoImpl class
+         * correctly generates the SQL statement for deleting a book.
+         * */
+        verify(jdbcTemplate).update(
+                eq("DELETE FROM books WHERE isbn =?"),
+                eq("978-1-5498-6791-0")
+        );
+    }
 }
