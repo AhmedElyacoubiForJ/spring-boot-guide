@@ -84,4 +84,25 @@ class AuthorDaoImplTest {
                 ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any()
         );
     }
+
+    @Test
+    public void testThatUpdateAuthorGeneratesCorrectSql() {
+        Author author = TestDataUtil.createTestAuthorA();
+
+        underTest.update(author);
+
+        /*
+        * This method verifies that the update method of the JdbcTemplate
+        * is called with the expected arguments.
+        * This helps ensure that the AuthorDaoImpl class correctly
+        * generates the SQL statement for updating an author.
+        * */
+        verify(jdbcTemplate).update(
+                eq("UPDATE authors SET id=?, name =?, age =? WHERE id =?"),
+                eq(1L),
+                eq("John Wayne"),
+                eq(78),
+                eq(1L)
+        );
+    }
 }
