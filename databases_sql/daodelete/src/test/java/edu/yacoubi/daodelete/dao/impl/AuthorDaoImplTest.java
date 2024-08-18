@@ -99,10 +99,23 @@ class AuthorDaoImplTest {
         * */
         verify(jdbcTemplate).update(
                 eq("UPDATE authors SET id=?, name =?, age =? WHERE id =?"),
-                eq(1L),
-                eq("John Wayne"),
-                eq(78),
-                eq(3L)
+                eq(1L), eq("John Wayne"), eq(78), eq(3L)
+        );
+    }
+
+    @Test
+    public void testThatDeleteAuthorGeneratesCorrectSql() {
+        underTest.delete(1L);
+
+        /*
+        * This method verifies that the update method of the JdbcTemplate
+        * is called with the expected arguments.
+        * This helps ensure that the AuthorDaoImpl class correctly
+        * generates the SQL statement for deleting an author.
+        * */
+        verify(jdbcTemplate).update(
+                eq("DELETE FROM authors WHERE id =?"),
+                eq(1L)
         );
     }
 }
