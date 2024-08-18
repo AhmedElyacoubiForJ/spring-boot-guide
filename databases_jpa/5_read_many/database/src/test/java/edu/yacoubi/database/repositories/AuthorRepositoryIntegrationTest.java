@@ -9,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,24 +39,24 @@ public class AuthorRepositoryIntegrationTest {
         assertThat(result.get()).isEqualTo(author);
     }
 
-//    @Test
-//    public void testThatMultipleAuthorsCanBeCreatedAndRetrievedAll() {
-//        // Given
-//        Author authorA = TestDataUtil.createTestAuthorA();
-//        underTest.save(authorA);
-//        Author authorB = TestDataUtil.createTestAuthorB();
-//        underTest.save(authorB);
-//        Author authorC = TestDataUtil.createTestAuthorC();
-//        underTest.save(authorC);
-//
-//        // When
-//        List<Author> result = underTest.findAll();
-//
-//        // Then
-//        assertThat(result)
-//                .hasSize(3)
-//                .containsExactly(authorA, authorB, authorC);
-//    }
+    @Test
+    public void testThatMultipleAuthorsCanBeCreatedAndRetrievedAll() {
+        // Given
+        Author authorA = TestDataUtil.createTestAuthorA();
+        underTest.save(authorA);
+        Author authorB = TestDataUtil.createTestAuthorB();
+        underTest.save(authorB);
+        Author authorC = TestDataUtil.createTestAuthorC();
+        underTest.save(authorC);
+
+        // When
+        Iterable<Author> result = underTest.findAll();
+
+        // Then
+        assertThat(result)
+                .hasSize(3)
+                .containsExactly(authorA, authorB, authorC);
+    }
 
 //    @Test
 //    public void testThatAuthorCanBeUpdated() {
