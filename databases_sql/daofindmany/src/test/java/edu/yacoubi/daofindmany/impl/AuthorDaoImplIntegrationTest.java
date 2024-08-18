@@ -45,13 +45,13 @@ public class AuthorDaoImplIntegrationTest {
     public void testThatMultipleAuthorsCanBeCreatedAndRetrievedAll() {
         // Given
         Author authorA = TestDataUtil.createTestAuthorA();
+        underTest.create(authorA);
         Author authorB = TestDataUtil.createTestAuthorB();
+        underTest.create(authorB);
         Author authorC = TestDataUtil.createTestAuthorC();
+        underTest.create(authorC);
 
         // When
-        underTest.create(authorA);
-        underTest.create(authorB);
-        underTest.create(authorC);
         List<Author> result = underTest.findAll();
 
         // Then
