@@ -96,7 +96,7 @@ public class BookRepositoryIntegrationTest {
         underTest.save(book);
 
         // When
-        underTest.delete(book);
+        underTest.deleteById(book.getIsbn());
         Optional<Book> result = underTest.findById(book.getIsbn());
 
         // Then

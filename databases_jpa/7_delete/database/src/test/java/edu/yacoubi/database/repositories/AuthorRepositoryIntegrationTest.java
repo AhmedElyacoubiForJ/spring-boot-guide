@@ -81,7 +81,7 @@ public class AuthorRepositoryIntegrationTest {
         underTest.save(author);
 
         // When
-        underTest.delete(author);
+        underTest.deleteById(author.getId());
         Optional<Author> result = underTest.findById(author.getId());
 
         // Then
