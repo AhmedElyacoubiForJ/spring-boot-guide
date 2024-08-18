@@ -1,5 +1,6 @@
 package edu.yacoubi.daoupdate.dao.impl;
 
+import edu.yacoubi.daoupdate.TestDataUtil;
 import edu.yacoubi.daoupdate.dao.impl.BookDaoImpl;
 import edu.yacoubi.daoupdate.model.Book;
 import org.junit.jupiter.api.Test;
@@ -37,11 +38,7 @@ class BookDaoImplTest {
     @Test
     public void testThatCreateBookGeneratesCorrectSql() {
         // Given
-        Book book = Book.builder()
-                .isbn("978-1-5498-6791-0")
-                .title("The Great Gatsby")
-                .authorId(1L)
-                .build();
+        Book book = TestDataUtil.createTestBookA();
         // When
         underTest.create(book);
 
@@ -52,9 +49,7 @@ class BookDaoImplTest {
          * */
         verify(jdbcTemplate).update(
                 eq("INSERT INTO books (isbn, title, author_id) VALUES (?, ?, ?)"),
-                eq("978-1-5498-6791-0"),
-                eq("The Great Gatsby"),
-                eq(1L)
+                eq("978-1-5498-6791-0"), eq("The Great Gatsby"), eq(1L)
         );
     }
 
@@ -71,8 +66,7 @@ class BookDaoImplTest {
          * */
         verify(jdbcTemplate).query(
                 eq("SELECT isbn, title, author_id FROM books WHERE isbn =? LIMIT 1"),
-                ArgumentMatchers.<BookDaoImpl.BookRowMapper>any(),
-                eq("978-1-5498-6791-0")
+                ArgumentMatchers.<BookDaoImpl.BookRowMapper>any(), eq("978-1-5498-6791-0")
         );
     }
 
@@ -85,6 +79,24 @@ class BookDaoImplTest {
         verify(jdbcTemplate).query(
                 eq("SELECT isbn, title, author_id FROM books"),
                 ArgumentMatchers.<BookDaoImpl.BookRowMapper>any()
+        );
+    }
+
+    @Test
+    public void testThatUpdateBookGeneratesCorrectSql() {
+        // Given
+        Book book = TestDataUtil.createTestBookA();
+        // When
+        underTest.update("978-1-5498-6791-0", book);
+
+        // Then
+        /*
+         * This method verifies that the update method of the JdbcTemplate is called with the expected arguments.
+         * This helps ensure that the BookDaoImpl class correctly generates the SQL statement for updating a book.
+         * */
+        verify(jdbcTemplate).update(
+                eq("UPDATE books SET isbn=?, title =?, author_id =? WHERE isbn =?"),
+                eq("978-1-5498-6791-0"), eq("The Great Gatsby"), eq(1L), eq("978-1-5498-6791-0")
         );
     }
 }
