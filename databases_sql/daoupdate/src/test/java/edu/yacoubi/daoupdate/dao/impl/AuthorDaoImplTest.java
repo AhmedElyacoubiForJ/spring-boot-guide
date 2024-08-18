@@ -89,7 +89,7 @@ class AuthorDaoImplTest {
     public void testThatUpdateAuthorGeneratesCorrectSql() {
         Author author = TestDataUtil.createTestAuthorA();
 
-        underTest.update(author);
+        underTest.update(3L, author);
 
         /*
         * This method verifies that the update method of the JdbcTemplate
@@ -102,7 +102,7 @@ class AuthorDaoImplTest {
                 eq(1L),
                 eq("John Wayne"),
                 eq(78),
-                eq(1L)
+                eq(3L)
         );
     }
 }
