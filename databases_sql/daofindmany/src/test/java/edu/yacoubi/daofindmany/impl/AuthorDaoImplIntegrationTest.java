@@ -17,6 +17,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
+/*
+* The `@DirtiesContext` annotation is used in JUnit 5 to mark a test class or test method as dirty,
+* meaning that the Spring application context will be recreated after the test execution.
+* In this case, the `AuthorDaoImplIntegrationTest` class is marked as dirty,
+* and the Spring application context will be recreated after each test method.
+* This ensures that any changes made to the database during a test method are rolled back,
+* allowing for isolation between test cases.
+* */
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class AuthorDaoImplIntegrationTest {
 
@@ -57,6 +65,6 @@ public class AuthorDaoImplIntegrationTest {
         // Then
         assertThat(result)
                 .hasSize(3)
-                .contains(authorA, authorB, authorC);
+                .containsExactly(authorA, authorB, authorC);
     }
 }

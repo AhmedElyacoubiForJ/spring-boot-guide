@@ -39,7 +39,7 @@ public class BookDaoImplIntegrationTest {
 
         // When
         underTest.create(book);
-        Optional<Book> result = underTest.find(book.getIsbn());
+        Optional<Book> result = underTest.findOne(book.getIsbn());
 
         // Then
         assertThat(result).isPresent();

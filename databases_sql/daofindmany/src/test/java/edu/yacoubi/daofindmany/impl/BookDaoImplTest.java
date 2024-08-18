@@ -61,7 +61,7 @@ class BookDaoImplTest {
     @Test
     public void testThatFindOneBookGeneratesCorrectSql() {
         // When
-        underTest.find("978-1-5498-6791-0");
+        underTest.findOne("978-1-5498-6791-0");
 
         // Then
         /*
@@ -73,6 +73,18 @@ class BookDaoImplTest {
                 eq("SELECT isbn, title, author_id FROM books WHERE isbn =? LIMIT 1"),
                 ArgumentMatchers.<BookDaoImpl.BookRowMapper>any(),
                 eq("978-1-5498-6791-0")
+        );
+    }
+
+    @Test
+    public void testThatFindAllBooksGeneratesCorrectSql() {
+        // When
+        underTest.findAll();
+
+        // Then
+        verify(jdbcTemplate).query(
+                eq("SELECT isbn, title, author_id FROM books"),
+                ArgumentMatchers.<BookDaoImpl.BookRowMapper>any()
         );
     }
 }
