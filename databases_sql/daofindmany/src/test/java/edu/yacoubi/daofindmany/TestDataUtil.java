@@ -30,10 +30,26 @@ public final class TestDataUtil {
                 .build();
     }
 
-    public static Book createTestBook() {
+    public static Book createTestBookA() {
         return Book.builder()
                 .isbn("978-1-5498-6791-0")
                 .title("The Great Gatsby")
+                .authorId(1L)
+                .build();
+    }
+
+    public static Book createTestBookB() {
+        return Book.builder()
+                .isbn("978-0-307-46330-9")
+                .title("To Kill a Mockingbird")
+                .authorId(1L)
+                .build();
+    }
+
+    public static Book createTestBookC() {
+        return Book.builder()
+                .isbn("978-0-316-76958-3")
+                .title("1984")
                 .authorId(1L)
                 .build();
     }
