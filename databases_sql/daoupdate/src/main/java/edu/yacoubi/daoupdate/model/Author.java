@@ -1,4 +1,4 @@
-package edu.yacoubi.daofindmany.model;
+package edu.yacoubi.daoupdate.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

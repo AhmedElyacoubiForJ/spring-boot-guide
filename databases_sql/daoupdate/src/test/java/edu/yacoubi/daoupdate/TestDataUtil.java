@@ -1,7 +1,7 @@
-package edu.yacoubi.daofindmany;
+package edu.yacoubi.daoupdate;
 
-import edu.yacoubi.daofindmany.model.Author;
-import edu.yacoubi.daofindmany.model.Book;
+import edu.yacoubi.daoupdate.model.Author;
+import edu.yacoubi.daoupdate.model.Book;
 
 public final class TestDataUtil {
     private TestDataUtil() {

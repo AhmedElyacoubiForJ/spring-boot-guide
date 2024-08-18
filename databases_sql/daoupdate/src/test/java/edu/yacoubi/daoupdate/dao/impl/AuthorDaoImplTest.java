@@ -1,8 +1,8 @@
-package edu.yacoubi.daofindmany.impl;
+package edu.yacoubi.daoupdate.dao.impl;
 
-import edu.yacoubi.daofindmany.TestDataUtil;
-import edu.yacoubi.daofindmany.dao.impl.AuthorDaoImpl;
-import edu.yacoubi.daofindmany.model.Author;
+import edu.yacoubi.daoupdate.TestDataUtil;
+import edu.yacoubi.daoupdate.dao.impl.AuthorDaoImpl;
+import edu.yacoubi.daoupdate.model.Author;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;

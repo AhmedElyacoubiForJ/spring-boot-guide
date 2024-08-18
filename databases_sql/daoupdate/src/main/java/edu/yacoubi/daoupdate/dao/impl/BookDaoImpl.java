@@ -1,7 +1,7 @@
-package edu.yacoubi.daofindmany.dao.impl;
+package edu.yacoubi.daoupdate.dao.impl;
 
-import edu.yacoubi.daofindmany.dao.BookDao;
-import edu.yacoubi.daofindmany.model.Book;
+import edu.yacoubi.daoupdate.dao.BookDao;
+import edu.yacoubi.daoupdate.model.Book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

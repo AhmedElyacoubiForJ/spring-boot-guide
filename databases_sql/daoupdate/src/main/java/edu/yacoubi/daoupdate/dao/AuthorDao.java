@@ -1,6 +1,6 @@
-package edu.yacoubi.daofindmany.dao;
+package edu.yacoubi.daoupdate.dao;
 
-import edu.yacoubi.daofindmany.model.Author;
+import edu.yacoubi.daoupdate.model.Author;
 
 import java.util.List;
 import java.util.Optional;

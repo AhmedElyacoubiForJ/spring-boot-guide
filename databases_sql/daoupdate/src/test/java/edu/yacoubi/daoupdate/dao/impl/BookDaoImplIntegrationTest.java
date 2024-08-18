@@ -1,10 +1,10 @@
-package edu.yacoubi.daofindmany.impl;
+package edu.yacoubi.daoupdate.dao.impl;
 
-import edu.yacoubi.daofindmany.TestDataUtil;
-import edu.yacoubi.daofindmany.dao.AuthorDao;
-import edu.yacoubi.daofindmany.dao.impl.BookDaoImpl;
-import edu.yacoubi.daofindmany.model.Author;
-import edu.yacoubi.daofindmany.model.Book;
+import edu.yacoubi.daoupdate.TestDataUtil;
+import edu.yacoubi.daoupdate.dao.AuthorDao;
+import edu.yacoubi.daoupdate.dao.impl.BookDaoImpl;
+import edu.yacoubi.daoupdate.model.Author;
+import edu.yacoubi.daoupdate.model.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
