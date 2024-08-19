@@ -123,4 +123,23 @@ public class AuthorRepositoryIntegrationTest {
                .hasSize(1)
                .containsExactly(authorB);
     }
+
+    @Test
+    public void testThatGetAuthorsWithAgeGreaterThan() {
+        // Given
+        Author authorA = TestDataUtil.createTestAuthorA();
+        underTest.save(authorA);
+        Author authorB = TestDataUtil.createTestAuthorB();
+        underTest.save(authorB);
+        Author authorC = TestDataUtil.createTestAuthorC();
+        underTest.save(authorC);
+
+        // When
+        Iterable<Author> result = underTest.findAuthorsAgeGreaterThan(60);
+
+        // Then
+        assertThat(result)
+               .hasSize(2)
+               .containsExactly(authorA, authorC);
+    }
 }
