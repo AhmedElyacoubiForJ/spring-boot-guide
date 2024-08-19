@@ -1,4 +1,4 @@
-package edu.yacoubi.database.model.entities;
+package edu.yacoubi.database.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "books")
-public class BookEntity {
+public class Book {
     @Id
     private String isbn;
     private String title;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
-    private AuthorEntity author;
+    private Author author;
 }
