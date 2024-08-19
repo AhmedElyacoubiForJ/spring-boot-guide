@@ -28,7 +28,7 @@ public class JacksonTest {
     @Test
     public void testThatObjectMapperCanCreateJavaObjectFromJsonObject() throws JsonProcessingException {
         // Given
-        String json = "{\"isbn\":\"978-3-16-148410-0\",\"title\":\"Clean Code: A Handbook of Agile Software Craftsmanship\",\"author\":\"Robert C. Martin\",\"year\":\"2008\"}";
+        String json = "{\"foo\":\"bar\",\"isbn\":\"978-3-16-148410-0\",\"title\":\"Clean Code: A Handbook of Agile Software Craftsmanship\",\"author\":\"Robert C. Martin\",\"year\":\"2008\"}";
 
         // When
         Book result = new ObjectMapper().readValue(json, Book.class);
