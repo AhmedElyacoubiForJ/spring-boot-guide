@@ -22,13 +22,13 @@ public class JacksonTest {
         String json = new ObjectMapper().writeValueAsString(book);
 
         // Then
-        assertThat(json).isEqualTo("{\"isbn\":\"978-3-16-148410-0\",\"title\":\"Clean Code: A Handbook of Agile Software Craftsmanship\",\"author\":\"Robert C. Martin\",\"publicationYear\":\"2008\"}");
+        assertThat(json).isEqualTo("{\"isbn\":\"978-3-16-148410-0\",\"title\":\"Clean Code: A Handbook of Agile Software Craftsmanship\",\"author\":\"Robert C. Martin\",\"year\":\"2008\"}");
     }
 
     @Test
     public void testThatObjectMapperCanCreateJavaObjectFromJsonObject() throws JsonProcessingException {
         // Given
-        String json = "{\"isbn\":\"978-3-16-148410-0\",\"title\":\"Clean Code: A Handbook of Agile Software Craftsmanship\",\"author\":\"Robert C. Martin\",\"publicationYear\":\"2008\"}";
+        String json = "{\"isbn\":\"978-3-16-148410-0\",\"title\":\"Clean Code: A Handbook of Agile Software Craftsmanship\",\"author\":\"Robert C. Martin\",\"year\":\"2008\"}";
 
         // When
         Book result = new ObjectMapper().readValue(json, Book.class);
