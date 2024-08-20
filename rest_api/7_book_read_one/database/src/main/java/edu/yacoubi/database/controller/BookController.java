@@ -42,9 +42,9 @@ public class BookController {
 
     @GetMapping(path = "/books/{isbn}")
     public ResponseEntity<BookDto> getBookById(@PathVariable("isbn") String isbn) {
-        Optional<Book> bookFound = bookService.getBook(isbn);
+        Optional<Book> foundBook = bookService.getBook(isbn);
 
-        return bookFound.map(book -> {
+        return foundBook.map(book -> {
                     BookDto bookDto = bookMapper.mapTo(book);
                     return new ResponseEntity<>(bookDto, HttpStatus.OK);
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
