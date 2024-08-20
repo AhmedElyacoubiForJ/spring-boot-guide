@@ -84,9 +84,7 @@ public class AuthorControllerIntegrationTest {
         Author testAuthorC = TestDataUtil.createTestAuthorC();
         authorService.save(testAuthorC);
 
-
-
-       // When/Then
+        // When/Then
         mockMvc.perform(MockMvcRequestBuilders.get("/authors")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
@@ -102,11 +100,35 @@ public class AuthorControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[2].age").value(testAuthorC.getAge()));
     }
 
+    @Test
+    public void testThatGetAuthorByIdReturnsWithStatus200Ok() throws Exception {
+        Author testAuthor = TestDataUtil.createTestAuthorA();
+        authorService.save(testAuthor);
 
-//
-//    @Test
-//    public void testThatGetAuthorByIdReturnsWithStatus200AndAuthorDetails() throws Exception {}
-//
+        mockMvc.perform(MockMvcRequestBuilders.get("/authors/{id}", testAuthor.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testThatGetAuthorByIdReturnsWithStatus400NotFound() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/authors/{id}", -1)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    public void testThatGetAuthorByIdReturnsAuthor() throws Exception {
+        Author testAuthor = TestDataUtil.createTestAuthorA();
+        authorService.save(testAuthor);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/authors/{id}", testAuthor.getId())
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(testAuthor.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(testAuthor.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(testAuthor.getAge()));
+    }
+
 //    @Test
 //    public void testThatCreateAuthorWithInvalidJsonReturnsHttp400BadRequest() throws Exception {}
 }
