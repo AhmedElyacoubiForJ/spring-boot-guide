@@ -6,6 +6,10 @@ import edu.yacoubi.database.service.IAuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 @RequiredArgsConstructor
 public class AuthorServiceImpl implements IAuthorService {
@@ -14,5 +18,11 @@ public class AuthorServiceImpl implements IAuthorService {
     @Override
     public Author save(Author author) {
         return authorRepository.save(author);
+    }
+
+    @Override
+    public List<Author> findAll() {
+        return StreamSupport.stream(authorRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 }
