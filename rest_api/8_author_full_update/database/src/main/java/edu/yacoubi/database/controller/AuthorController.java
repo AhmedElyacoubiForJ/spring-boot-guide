@@ -54,7 +54,7 @@ public class AuthorController {
     public ResponseEntity<AuthorDto> fullUpdateAuthor(
             @PathVariable("id") Long id,
             @RequestBody AuthorDto authorDto) {
-        
+
         if (!authorService.isExists(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
