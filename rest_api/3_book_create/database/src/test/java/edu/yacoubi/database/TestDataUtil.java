@@ -1,5 +1,7 @@
 package edu.yacoubi.database;
 
+import edu.yacoubi.database.model.dto.AuthorDto;
+import edu.yacoubi.database.model.dto.BookDto;
 import edu.yacoubi.database.model.entity.Author;
 import edu.yacoubi.database.model.entity.Book;
 
@@ -32,6 +34,14 @@ public class TestDataUtil {
 
     public static Book createTestBookA(final Author author) {
         return Book.builder()
+                .isbn("978-1-5498-6791-0")
+                .title("The Great Gatsby")
+                .author(author)
+                .build();
+    }
+
+    public static BookDto createTestBookDtoA(final AuthorDto author) {
+        return BookDto.builder()
                 .isbn("978-1-5498-6791-0")
                 .title("The Great Gatsby")
                 .author(author)
