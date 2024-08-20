@@ -9,4 +9,5 @@ public interface IAuthorService {
     Author save(Author author);
     List<Author> getAll();
     Optional<Author> getAuthor(Long id);
+    boolean isExists(Long id);
 }
