@@ -7,12 +7,10 @@ import edu.yacoubi.database.service.IAuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -40,5 +38,15 @@ public class AuthorController {
                         .collect(Collectors.toList()),
                 HttpStatus.OK
         );
+    }
+
+    @GetMapping(path = "/authors/{id}")
+    public ResponseEntity<AuthorDto> getAuthorById(@PathVariable("id") Long id) {
+        Optional<Author> authorOptional = authorService.getAuthor(id);
+
+        return authorOptional.map(author -> {
+            AuthorDto authorDto = authorMapper.mapTo(author);
+            return new ResponseEntity<>(authorDto, HttpStatus.OK);
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
