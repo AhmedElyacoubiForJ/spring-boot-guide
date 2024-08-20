@@ -21,7 +21,7 @@ public class AuthorServiceImpl implements IAuthorService {
     }
 
     @Override
-    public List<Author> findAll() {
+    public List<Author> getAll() {
         return StreamSupport.stream(authorRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }

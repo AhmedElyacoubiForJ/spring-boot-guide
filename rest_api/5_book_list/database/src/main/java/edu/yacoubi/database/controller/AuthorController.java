@@ -32,7 +32,7 @@ public class AuthorController {
 
     @GetMapping(path = "/authors")
     public ResponseEntity<List<AuthorDto>> getAllAuthors() {
-        List<Author> authors = authorService.findAll();
+        List<Author> authors = authorService.getAll();
 
         return new ResponseEntity<>(
                 authors.stream()
