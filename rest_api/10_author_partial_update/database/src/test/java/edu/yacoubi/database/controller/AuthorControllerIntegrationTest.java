@@ -1,6 +1,8 @@
 package edu.yacoubi.database.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import edu.yacoubi.database.TestDataUtil;
 import edu.yacoubi.database.model.dto.AuthorDto;
 import edu.yacoubi.database.model.entity.Author;
@@ -177,4 +179,70 @@ public class AuthorControllerIntegrationTest {
                         MockMvcResultMatchers.jsonPath("$.age").value(updatedAuthorDto.getAge())
         );
     }
+
+    @Test
+    public void testThatPartialUpdateExistingAuthorReturnsHttpStatus200Ok() throws Exception {
+        Author testAuthor = TestDataUtil.createTestAuthorA();
+        Author savedAuthor = authorService.save(testAuthor);
+
+        AuthorDto updatedAuthorDto = TestDataUtil.createTestAuthorDtoA();
+        //updatedAuthorDto.setId(savedAuthor.getId());
+        updatedAuthorDto.setName("UPDATED");
+        String jsonAuthor = objectMapper.writeValueAsString(updatedAuthorDto);
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/authors/{id}", savedAuthor.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonAuthor)
+        ).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testThatPartialUpdateExistingAuthorReturnsUpdatedAuthor() throws Exception {
+        Author testAuthor = TestDataUtil.createTestAuthorA();
+        Author savedAuthor = authorService.save(testAuthor);
+
+        AuthorDto updatedAuthorDto = TestDataUtil.createTestAuthorDtoA();
+        updatedAuthorDto.setName("UPDATED");
+        String jsonAuthor = objectMapper.writeValueAsString(updatedAuthorDto);
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/authors/{id}", savedAuthor.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonAuthor)
+                ).andExpect(
+                        MockMvcResultMatchers.jsonPath("$.id").value(savedAuthor.getId())
+                ).andExpect(
+                        MockMvcResultMatchers.jsonPath("$.name").value("UPDATED")
+                ).andExpect(
+                        MockMvcResultMatchers.jsonPath("$.age").value(testAuthor.getAge())
+        );
+    }
+
+    @Test
+    public void testThatPartialUpdateExistingAuthorRequestedWithAgeOnlyReturnsUpdatedAuthor() throws Exception {
+        Author testAuthor = TestDataUtil.createTestAuthorA();
+        Author savedAuthor = authorService.save(testAuthor);
+
+        AuthorDto updatedAuthorDto = TestDataUtil.createTestAuthorDtoA();
+        updatedAuthorDto.setAge(30);
+        String jsonAuthor = objectMapper.writeValueAsString(updatedAuthorDto);
+        JsonNode jsonNode = objectMapper.readTree(jsonAuthor);
+        ObjectNode object = (ObjectNode) jsonNode;
+        object.remove("id");
+        object.remove("name");
+
+        jsonAuthor = objectMapper.writeValueAsString(object);
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/authors/{id}", savedAuthor.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonAuthor)
+                ).andExpect(
+                        MockMvcResultMatchers.jsonPath("$.id").value(savedAuthor.getId())
+                ).andExpect(
+                        MockMvcResultMatchers.jsonPath("$.name").value(savedAuthor.getName())
+                ).andExpect(
+                        MockMvcResultMatchers.jsonPath("$.age").value(updatedAuthorDto.getAge())
+        );
+    }
+
+
 }
