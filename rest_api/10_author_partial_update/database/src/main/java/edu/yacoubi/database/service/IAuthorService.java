@@ -10,4 +10,5 @@ public interface IAuthorService {
     List<Author> getAll();
     Optional<Author> getAuthor(Long id);
     boolean isExists(Long id);
+    Author partialUpdate(Long id, Author author);
 }

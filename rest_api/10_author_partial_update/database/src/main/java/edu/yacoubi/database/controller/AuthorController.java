@@ -41,7 +41,7 @@ public class AuthorController {
     }
 
     @GetMapping(path = "/authors/{id}")
-    public ResponseEntity<AuthorDto> getAuthorById(@PathVariable("id") Long id) {
+    public ResponseEntity<AuthorDto> getAuthor(@PathVariable("id") Long id) {
         Optional<Author> authorOptional = authorService.getAuthor(id);
 
         return authorOptional.map(author -> {
@@ -62,6 +62,21 @@ public class AuthorController {
         authorDto.setId(id);
         Author author = authorMapper.mapFrom(authorDto);
         Author updatedAuthor = authorService.save(author);
+
+        return new ResponseEntity<>(authorMapper.mapTo(updatedAuthor), HttpStatus.OK);
+    }
+
+    @PatchMapping(path = "/authors/{id}")
+    public ResponseEntity<AuthorDto> partialUpdateAuthor(
+            @PathVariable("id") Long id,
+            @RequestBody AuthorDto authorDto) {
+
+        if (!authorService.isExists(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Author author = authorMapper.mapFrom(authorDto);
+        Author updatedAuthor = authorService.partialUpdate(id, author);
 
         return new ResponseEntity<>(authorMapper.mapTo(updatedAuthor), HttpStatus.OK);
     }
