@@ -47,4 +47,9 @@ public class BookServiceImpl implements IBookService {
             return bookRepository.save(existingBook);
         }).orElseThrow(() -> new RuntimeException("Book does not exist"));
     }
+
+    @Override
+    public void delete(String isbn) {
+        bookRepository.deleteById(isbn);
+    }
 }
