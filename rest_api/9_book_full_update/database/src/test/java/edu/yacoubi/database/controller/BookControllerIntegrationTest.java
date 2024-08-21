@@ -75,13 +75,13 @@ public class BookControllerIntegrationTest {
     public void testThatGetAllBooksReturnsAllBooks() throws Exception {
         // Given
         Book bookA = TestDataUtil.createTestBookA(null);
-        bookService.createBook(bookA.getIsbn(), bookA);
+        bookService.createUpdateBook(bookA.getIsbn(), bookA);
 
         Book bookB = TestDataUtil.createTestBookB(null);
-        bookService.createBook(bookB.getIsbn(), bookB);
+        bookService.createUpdateBook(bookB.getIsbn(), bookB);
 
         Book bookC = TestDataUtil.createTestBookC(null);
-        bookService.createBook(bookC.getIsbn(), bookC);
+        bookService.createUpdateBook(bookC.getIsbn(), bookC);
 
         // When & Then
         mockMvc.perform(MockMvcRequestBuilders.get("/books")
@@ -99,7 +99,7 @@ public class BookControllerIntegrationTest {
     public void testThatGetBookReturnsWithStatus200Ok() throws Exception {
         // Given
         Book bookA = TestDataUtil.createTestBookA(null);
-        bookService.createBook(bookA.getIsbn(), bookA);
+        bookService.createUpdateBook(bookA.getIsbn(), bookA);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/books/{isbn}", bookA.getIsbn())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -118,7 +118,7 @@ public class BookControllerIntegrationTest {
     public void testThatGetBookReturnsTheBook() throws Exception {
         // Given
         Book bookA = TestDataUtil.createTestBookA(null);
-        bookService.createBook(bookA.getIsbn(), bookA);
+        bookService.createUpdateBook(bookA.getIsbn(), bookA);
 
         // When & Then
         mockMvc.perform(MockMvcRequestBuilders.get("/books/{isbn}", bookA.getIsbn())

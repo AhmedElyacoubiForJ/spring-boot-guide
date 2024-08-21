@@ -65,5 +65,4 @@ public class AuthorController {
 
         return new ResponseEntity<>(authorMapper.mapTo(updatedAuthor), HttpStatus.OK);
     }
-
 }
