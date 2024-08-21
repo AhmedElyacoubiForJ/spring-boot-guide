@@ -1,6 +1,8 @@
 package edu.yacoubi.database.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import edu.yacoubi.database.TestDataUtil;
 import edu.yacoubi.database.model.dto.BookDto;
 import edu.yacoubi.database.model.entity.Book;
@@ -164,6 +166,60 @@ public class BookControllerIntegrationTest {
                 )
                 .andExpect(
                         MockMvcResultMatchers.jsonPath("$.title").value(bookDto.getTitle())
+                );
+    }
+
+    @Test
+    public void testThatPartialUpdateBookReturnsHttpStatus200Ok() throws Exception {
+        // Given
+        Book bookA = TestDataUtil.createTestBookA(null);
+        Book savedBookA = bookService.createUpdateBook(bookA.getIsbn(), bookA);
+
+        BookDto bookDto = TestDataUtil.createTestBookDtoA(null);
+        bookDto.setIsbn(savedBookA.getIsbn());
+        bookDto.setTitle("UPDATED Title");
+        String jsonBook = objectMapper.writeValueAsString(bookDto);
+
+        JsonNode jsonNode = objectMapper.readTree(jsonBook);
+        ObjectNode object = (ObjectNode) jsonNode;
+        object.remove("id");
+        object.remove("author");
+
+        jsonBook = objectMapper.writeValueAsString(object);
+
+        // When & Then
+        mockMvc.perform(MockMvcRequestBuilders.patch("/books/" + savedBookA.getIsbn())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonBook)
+                ).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void testThatPartialUpdateBookRequestedWithTitleOnlyReturnsTheUpdatedBook() throws Exception {
+        // Given
+        Book bookA = TestDataUtil.createTestBookA(null);
+        Book savedBookA = bookService.createUpdateBook(bookA.getIsbn(), bookA);
+
+        BookDto bookDto = TestDataUtil.createTestBookDtoA(null);
+        bookDto.setTitle("UPDATED Title");
+        String jsonBook = objectMapper.writeValueAsString(bookDto);
+
+        JsonNode jsonNode = objectMapper.readTree(jsonBook);
+        ObjectNode object = (ObjectNode) jsonNode;
+        object.remove("id");
+        object.remove("author");
+
+        jsonBook = objectMapper.writeValueAsString(object);
+
+        // When & Then
+        mockMvc.perform(MockMvcRequestBuilders.patch("/books/" + savedBookA.getIsbn())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonBook))
+                .andExpect(
+                        MockMvcResultMatchers.jsonPath("$.isbn").value(savedBookA.getIsbn())
+                )
+                .andExpect(
+                        MockMvcResultMatchers.jsonPath("$.title").value("UPDATED Title")
                 );
     }
 }
