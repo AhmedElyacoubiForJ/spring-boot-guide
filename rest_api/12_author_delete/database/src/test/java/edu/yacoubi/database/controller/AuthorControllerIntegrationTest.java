@@ -169,14 +169,14 @@ public class AuthorControllerIntegrationTest {
         String jsonAuthor = objectMapper.writeValueAsString(updatedAuthorDto);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/authors/{id}", savedAuthor.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonAuthor)
-                ).andExpect(
-                        MockMvcResultMatchers.jsonPath("$.id").value(updatedAuthorDto.getId())
-                ).andExpect(
-                        MockMvcResultMatchers.jsonPath("$.name").value(updatedAuthorDto.getName())
-                ).andExpect(
-                        MockMvcResultMatchers.jsonPath("$.age").value(updatedAuthorDto.getAge())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonAuthor)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.id").value(updatedAuthorDto.getId())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.name").value(updatedAuthorDto.getName())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.age").value(updatedAuthorDto.getAge())
         );
     }
 
@@ -191,8 +191,8 @@ public class AuthorControllerIntegrationTest {
         String jsonAuthor = objectMapper.writeValueAsString(updatedAuthorDto);
 
         mockMvc.perform(MockMvcRequestBuilders.patch("/authors/{id}", savedAuthor.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonAuthor)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonAuthor)
         ).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
@@ -206,14 +206,14 @@ public class AuthorControllerIntegrationTest {
         String jsonAuthor = objectMapper.writeValueAsString(updatedAuthorDto);
 
         mockMvc.perform(MockMvcRequestBuilders.patch("/authors/{id}", savedAuthor.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonAuthor)
-                ).andExpect(
-                        MockMvcResultMatchers.jsonPath("$.id").value(savedAuthor.getId())
-                ).andExpect(
-                        MockMvcResultMatchers.jsonPath("$.name").value("UPDATED")
-                ).andExpect(
-                        MockMvcResultMatchers.jsonPath("$.age").value(testAuthor.getAge())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonAuthor)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.id").value(savedAuthor.getId())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.name").value("UPDATED")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.age").value(testAuthor.getAge())
         );
     }
 
@@ -233,14 +233,14 @@ public class AuthorControllerIntegrationTest {
         jsonAuthor = objectMapper.writeValueAsString(object);
 
         mockMvc.perform(MockMvcRequestBuilders.patch("/authors/{id}", savedAuthor.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonAuthor)
-                ).andExpect(
-                        MockMvcResultMatchers.jsonPath("$.id").value(savedAuthor.getId())
-                ).andExpect(
-                        MockMvcResultMatchers.jsonPath("$.name").value(savedAuthor.getName())
-                ).andExpect(
-                        MockMvcResultMatchers.jsonPath("$.age").value(updatedAuthorDto.getAge())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonAuthor)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.id").value(savedAuthor.getId())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.name").value(savedAuthor.getName())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.age").value(updatedAuthorDto.getAge())
         );
     }
 
@@ -260,5 +260,4 @@ public class AuthorControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(MockMvcResultMatchers.status().isNotFound());
     }
-
 }
