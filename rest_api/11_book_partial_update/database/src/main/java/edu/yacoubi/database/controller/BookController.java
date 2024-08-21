@@ -35,13 +35,26 @@ public class BookController {
         }
     }
 
+    @PatchMapping(path = "/books/{isbn}")
+    public ResponseEntity<BookDto> partialUpdateBook(
+            @PathVariable("isbn") String isbn,
+            @RequestBody BookDto bookDto) {
+
+        if (!bookService.isExists(isbn)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Book book = bookMapper.mapFrom(bookDto);
+        Book updatedBook = bookService.partialUpdate(isbn, book);
+
+        return new ResponseEntity<>(bookMapper.mapTo(updatedBook), HttpStatus.OK);
+    }
+
     @GetMapping(path = "/books")
     public ResponseEntity<List<BookDto>> getAllBooks() {
         List<Book> books = bookService.getAll();
         return new ResponseEntity<>(
-                books.stream()
-                        .map(bookMapper::mapTo)
-                        .collect(Collectors.toList()),
+                books.stream().map(bookMapper::mapTo).collect(Collectors.toList()),
                 HttpStatus.OK
         );
     }
