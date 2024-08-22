@@ -4,6 +4,8 @@ import edu.yacoubi.database.model.entity.Book;
 import edu.yacoubi.database.repository.BookRepository;
 import edu.yacoubi.database.service.IBookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +28,11 @@ public class BookServiceImpl implements IBookService {
     public List<Book> getAll() {
         return StreamSupport.stream(bookRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<Book> getAll(Pageable pageable) {
+        return bookRepository.findAll(pageable);
     }
 
     @Override

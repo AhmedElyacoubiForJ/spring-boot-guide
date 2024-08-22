@@ -5,6 +5,8 @@ import edu.yacoubi.database.model.dto.BookDto;
 import edu.yacoubi.database.model.entity.Book;
 import edu.yacoubi.database.service.IBookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,13 +52,19 @@ public class BookController {
         return new ResponseEntity<>(bookMapper.mapTo(updatedBook), HttpStatus.OK);
     }
 
+//    @GetMapping(path = "/books")
+//    public ResponseEntity<List<BookDto>> getAllBooks() {
+//        List<Book> books = bookService.getAll();
+//        return new ResponseEntity<>(
+//                books.stream().map(bookMapper::mapTo).collect(Collectors.toList()),
+//                HttpStatus.OK
+//        );
+//    }
+
     @GetMapping(path = "/books")
-    public ResponseEntity<List<BookDto>> getAllBooks() {
-        List<Book> books = bookService.getAll();
-        return new ResponseEntity<>(
-                books.stream().map(bookMapper::mapTo).collect(Collectors.toList()),
-                HttpStatus.OK
-        );
+    public ResponseEntity<Page<BookDto>> getAllBooks(Pageable pageable) {
+        Page<Book> books = bookService.getAll(pageable);
+        return new ResponseEntity<>(books.map(bookMapper::mapTo), HttpStatus.OK);
     }
 
     @GetMapping(path = "/books/{isbn}")
